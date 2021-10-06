@@ -15,10 +15,10 @@ class CreateListasTable extends Migration
     {
         Schema::create('listas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('descricao');
-            $table->dateTime('data');
-            $table->boolean('status');
+            $table->unsignedBigInteger('user_id')->nullable(true);
+            $table->string('descricao')->nullable(true);
+            $table->dateTime('data')->nullable(true);
+            $table->boolean('status')->nullable(true);
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
