@@ -14,11 +14,12 @@ export class UserService {
     private cookieService: CookieService
   ) { }
 
-  getUserLogin(email,senha){
+  getUserLogin(user: User){
     let params = new HttpParams();
-    params = params.append('email', email);
-    params = params.append('senha', senha);
-    console.log(this.http.get<User[]>("http://localhost:8000/api/login", { params }));
+    params = params.append('email', user.email);
+    params = params.append('password', user.password);
+    
+    return this.http.get<User>("http://localhost:8000/api/login", {params});
   }
 
   setUser(user: User): Observable<User>{

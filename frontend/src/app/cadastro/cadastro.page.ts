@@ -40,7 +40,7 @@ export class CadastroPage implements OnInit {
     toast.present();
   }
 
-  async cadastro() {
+  cadastro() {
     if(this.userForm.email.length != 0){
       if(this.userForm.name.length != 0){
         if(this.userForm.password.length != 0){

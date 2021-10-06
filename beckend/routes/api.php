@@ -22,4 +22,4 @@ Route::delete('user/{id}', [UserController::class, 'destroy']);
 
 
 //POST de login
-Route::post('login', [UserController::class, 'getLogin']);
+Route::get('login', [UserController::class, 'getLogin']);

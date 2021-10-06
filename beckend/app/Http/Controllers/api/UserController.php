@@ -43,7 +43,7 @@ class UserController extends Controller
 
    public function getLogin(Request $request){
        return User::where('email', '=', $request['email'])
-        ->where('password','=',$request['password'])
+        ->where('password','=',md5($request['password']))
         ->firstOrFail();
    }
 }
