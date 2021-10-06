@@ -20,6 +20,7 @@ class UserController extends Controller
 
    public function store(Request $request)
    {
+       $request['password'] = md5($request['password']);
        User::create($request->all());
    }
 
