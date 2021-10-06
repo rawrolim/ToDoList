@@ -29,4 +29,10 @@ export class UserService {
   getAllUsers(){
     return this.http.get<User[]>("http://localhost:8000/api/user");
   }
+
+  getCurrentUser(){
+    let params = new HttpParams();
+    params = params.append('id', this.cookieService.get("user_id"));
+    return this.http.get<User>("http://localhost:8000/api/user", {params});
+  }
 }

@@ -1,20 +1,74 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            <ion-icon name="list-outline"></ion-icon> To do List
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-grid>
+        <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-margin-top" size-md='8'>
+                <ion-card-content >
+                    <form (ngSubmit)="salvar()">
+                        <ion-input type="hidden" [(ngModel)]="Form.id" name="id"></ion-input>
+                        <ion-item>
+                            <ion-label position="floating"><ion-icon name="document-outline"></ion-icon>Descrição</ion-label>
+                            <ion-input [(ngModel)]="Form.descricao" name="descricao" type="text" placeholder="Insira a descrição"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating"><ion-icon name="calendar-outline"></ion-icon>Prazo</ion-label>
+                            <ion-input [(ngModel)]="Form.data" name="data" type="date" placeholder="Insira o prazo"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating"><ion-icon name="checkmark-outline"></ion-icon>Status</ion-label>
+                            <ion-select [(ngModel)]="Form.status" name="data">
+                                <ion-select-option value="1">Feito</ion-select-option>
+                                <ion-select-option value="0">Pendente</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <div style="text-align:end;">
+                            <ion-button type="submit">Cadastrar</ion-button>
+                        </div>
+                    </form>
+                </ion-card-content>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+
+            
+                <ion-card-content >
+                    <form (ngSubmit)="listaAcao()">
+                        <ion-input type="hidden" [(ngModel)]="Form.id" name="id"></ion-input>
+                        <ion-grid>
+                            <ion-row class="list" *ngFor="let obj of lista">
+                                <ion-col class="ion-align-self-center">
+                                    {{ obj.descricao }}
+                                </ion-col>
+                                <ion-col class="ion-align-self-center">
+                                    {{ obj.data }}
+                                </ion-col>
+                                <ion-col size="1" class="ion-align-self-center" >
+                                    <ion-button color="success">
+                                        <ion-icon name="checkmark-outline"></ion-icon>
+                                    </ion-button>
+                                </ion-col>
+                                <ion-col size="1" class="ion-align-self-center" >
+                                    <ion-button color="primary">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                    </ion-button>
+                                </ion-col>
+                                <ion-col size="1">
+                                    <ion-button color="danger">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </form>
+                </ion-card-content>
+
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

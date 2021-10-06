@@ -39,4 +39,9 @@ class ListaController extends Controller
         $lista = lista::findOrFail($id);
         $lista->delete();
     }
+
+    public function getUserList(Request $request){
+        return lista::where('user_id','=',$request['user_id'])
+            ->get();
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\api\UserController;
 
 //CRUD de lista
 Route::get('lista', [ListaController::class, 'index']);
+Route::get('listaUser', [ListaController::class, 'getUserList']);
 Route::get('lista/{id}', [ListaController::class, 'show']);
 Route::post('lista', [ListaController::class, 'store']);
 Route::put('lista/{id}', [ListaController::class, 'update']);
