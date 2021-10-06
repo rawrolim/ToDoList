@@ -41,8 +41,8 @@ class UserController extends Controller
    }
 
    public function getLogin(Request $request){
-       $User = $request->all();
-       return User::select("name");
-
+       return User::where('email', '=', $request['email'])
+        ->where('password','=',$request['password'])
+        ->firstOrFail();
    }
 }
