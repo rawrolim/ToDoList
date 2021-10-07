@@ -23,48 +23,87 @@
                         </ion-item>
                         <ion-item>
                             <ion-label position="floating"><ion-icon name="checkmark-outline"></ion-icon>Status</ion-label>
-                            <ion-select [(ngModel)]="Form.status" name="data">
+                            <ion-select [(ngModel)]="Form.status" value="{{Form.status}}" name="status">
                                 <ion-select-option value="1">Feito</ion-select-option>
                                 <ion-select-option value="0">Pendente</ion-select-option>
                             </ion-select>
                         </ion-item>
                         <div style="text-align:end;">
-                            <ion-button type="submit">Cadastrar</ion-button>
+                            <ion-button *ngIf="!Form.id" type="submit">Cadastrar</ion-button>
+                            <ion-button *ngIf="Form.id" type="submit">Editar</ion-button>
+                            <ion-button *ngIf="Form.id" (click)="Cancelar()" color="danger" type="button">Cancelar</ion-button>
                         </div>
                     </form>
                 </ion-card-content>
 
 
-            
                 <ion-card-content >
-                    <form (ngSubmit)="listaAcao()">
-                        <ion-input type="hidden" [(ngModel)]="Form.id" name="id"></ion-input>
-                        <ion-grid>
-                            <ion-row class="list" *ngFor="let obj of lista">
-                                <ion-col class="ion-align-self-center">
-                                    {{ obj.descricao }}
-                                </ion-col>
-                                <ion-col class="ion-align-self-center">
-                                    {{ obj.data }}
-                                </ion-col>
-                                <ion-col size="1" class="ion-align-self-center" >
-                                    <ion-button color="success">
+                    <h1>Pendentes</h1>
+                    <ion-col *ngIf="listaActive == 0">
+                        Não há itens pendentes
+                    </ion-col>
+                    <ion-grid>
+                        <ion-row class="list" *ngFor="let obj of listaActive">
+                            <ion-col class="ion-align-self-center">
+                                {{ obj.descricao }}
+                            </ion-col>
+                            <ion-col class="ion-align-self-center">
+                                {{ obj.data }}
+                            </ion-col>
+                            <ion-col size="1" class="ion-align-self-center" >
+                                <form (ngSubmit)="Check(obj.id)">
+                                    <ion-button type="submit" color="success">
                                         <ion-icon name="checkmark-outline"></ion-icon>
                                     </ion-button>
-                                </ion-col>
-                                <ion-col size="1" class="ion-align-self-center" >
-                                    <ion-button color="primary">
+                                </form>
+                            </ion-col>
+                            <ion-col size="1" class="ion-align-self-center" >
+                                <form (ngSubmit)="Edit(obj.id)">
+                                    <ion-button type="submit" color="primary">
                                         <ion-icon name="create-outline"></ion-icon>
                                     </ion-button>
-                                </ion-col>
-                                <ion-col size="1">
-                                    <ion-button color="danger">
+                                </form>
+                            </ion-col>
+                            <ion-col size="1">
+                                <form (ngSubmit)="Delete(obj.id)">
+                                    <ion-button type="submit" color="danger">
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </ion-button>
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                    </form>
+                                </form>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-content>
+
+                <ion-card-content >
+                    <h1>Concluídos</h1>
+                    <ion-col *ngIf="listaInactive == 0">
+                        Não há itens concluídos
+                    </ion-col>
+                    <ion-grid>
+                        <ion-row class="list" *ngFor="let obj of listaInactive">
+                            <ion-col class="ion-align-self-center">
+                                {{ obj.descricao }}
+                            </ion-col>
+                            <ion-col class="ion-align-self-center">
+                                {{ obj.data }}
+                            </ion-col>
+                            <ion-col size="1" class="ion-align-self-center" >
+                                <form (ngSubmit)="Check(obj.id)">
+                                    <ion-button type="submit" color="danger">
+                                        <ion-icon name="close-outline"></ion-icon>
+                                    </ion-button>
+                                </form>
+                            </ion-col>
+                            <ion-col size="1">
+                                <form (ngSubmit)="Delete(obj.id)">
+                                    <ion-button type="submit" color="danger">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </ion-button>
+                                </form>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
                 </ion-card-content>
 
 

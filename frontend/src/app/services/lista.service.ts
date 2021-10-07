@@ -18,18 +18,32 @@ export class ListaService {
     return this.http.post<Lista>("http://localhost:8000/api/lista", lista)
   }
 
-  getAllLista(){
+  getAllListaActive(){
     let params = new HttpParams();
     params = params.append('user_id', this.cookieService.get('user_id') );
 
-    return this.http.get<Lista[]>("http://localhost:8000/api/listaUser", {params})
+    return this.http.get<Lista[]>("http://localhost:8000/api/listaUserActive", {params})
+  }
+
+  getAllListaInactive(){
+    let params = new HttpParams();
+    params = params.append('user_id', this.cookieService.get('user_id') );
+
+    return this.http.get<Lista[]>("http://localhost:8000/api/listaUserInactive", {params})
   }
 
   getLista(lista: Lista){
     let params = new HttpParams();
     params = params.append('id', lista.id);
 
-    return this.http.get<Lista[]>("http://localhost:8000/api/lista", {params})
+    return this.http.get<Lista>("http://localhost:8000/api/lista/"+lista.id, {params})
+  }
 
+  Update(lista: Lista){
+    return this.http.put("http://localhost:8000/api/lista/"+lista.id, lista)
+  }
+
+  Delete(id){
+    return this.http.delete("http://localhost:8000/api/lista/"+id)
   }
 }

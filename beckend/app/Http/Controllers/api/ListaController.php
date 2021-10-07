@@ -40,8 +40,15 @@ class ListaController extends Controller
         $lista->delete();
     }
 
-    public function getUserList(Request $request){
+    public function getUserListActive(Request $request){
         return lista::where('user_id','=',$request['user_id'])
+            ->where('status','=',false) //Busca todos que não foram feitos ainda
+            ->get();
+    }
+
+    public function getUserListInactive(Request $request){
+        return lista::where('user_id','=',$request['user_id'])
+            ->where('status','=',true) // Busca todos que foram feitos
             ->get();
     }
 }

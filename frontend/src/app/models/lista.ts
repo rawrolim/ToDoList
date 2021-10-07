@@ -1,4 +1,4 @@
-export interface Lista {
+export class Lista {
     id: number;
     descricao: string;
     user_id: number;
