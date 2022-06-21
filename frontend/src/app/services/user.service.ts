@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,20 +20,20 @@ export class UserService {
     params = params.append('email', user.email);
     params = params.append('password', user.password);
     
-    return this.http.get<User>("http://localhost:8000/api/login", {params});
+    return this.http.get<User>(environment.url+"login", {params});
   }
 
   setUser(user: User): Observable<User>{
-    return this.http.post<User>("http://localhost:8000/api/user", user)
+    return this.http.post<User>(environment.url+"user", user)
   }
 
   getAllUsers(){
-    return this.http.get<User[]>("http://localhost:8000/api/user");
+    return this.http.get<User[]>(environment.url+"user");
   }
 
   getCurrentUser(){
     let params = new HttpParams();
     params = params.append('id', this.cookieService.get("user_id"));
-    return this.http.get<User>("http://localhost:8000/api/user", {params});
+    return this.http.get<User>(environment.url+"user", {params});
   }
 }
