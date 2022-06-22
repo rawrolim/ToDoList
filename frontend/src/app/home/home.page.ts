@@ -76,20 +76,19 @@ export class HomePage implements OnInit{
   Check(id){
     this.lista_aux.id = id
     this.listaService.getLista(this.lista_aux).subscribe(r => {
-      this.lista_aux = r
-    })
-
-    if(this.lista_aux.status){
-      this.lista_aux.status = false
-      this.toast('Tarefa marcada como pendente.','success')
-    }else{
-      this.toast('Tarefa marcada como finalizada.','success')
-      this.lista_aux.status = true
-    }
-
-    this.listaService.Update(this.lista_aux).subscribe(r => {
-      this.atualizaListas(); 
-    })
+      this.lista_aux = r;
+      if(this.lista_aux.status){
+        this.lista_aux.status = false;
+        this.toast('Tarefa marcada como pendente.','success')
+      }else{
+        this.toast('Tarefa marcada como finalizada.','success')
+        this.lista_aux.status = true;
+      }
+  
+      this.listaService.Update(this.lista_aux).subscribe(r => {
+        this.atualizaListas(); 
+      });
+    })    
   }
 
   Edit(id){
