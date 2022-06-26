@@ -12,7 +12,7 @@ Route::get('listaUserInactive', [ListaController::class, 'getUserListInactive'])
 Route::get('lista/{id}', [ListaController::class, 'show']);
 Route::post('lista', [ListaController::class, 'store']);
 Route::put('lista/{id}', [ListaController::class, 'update']);
-Route::delete('lista/{id}', [ListaController::class, 'destroy']);
+Route::delete('lista/{id}', [ListaController::class, 'destroy']); 
 
 
 //CRUD de usuario

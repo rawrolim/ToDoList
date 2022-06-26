@@ -7,107 +7,165 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-grid>
-        <ion-row class="ion-justify-content-center">
-            <ion-col class="ion-margin-top" size-md='8'>
-                <ion-card-content >
-                    <form (ngSubmit)="salvar()">
-                        <ion-input type="hidden" [(ngModel)]="Form.id" name="id"></ion-input>
-                        <ion-item>
-                            <ion-label position="floating"><ion-icon name="document-outline"></ion-icon>Descrição</ion-label>
-                            <ion-input [(ngModel)]="Form.descricao" name="descricao" type="text" placeholder="Insira a descrição"></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label position="floating"><ion-icon name="calendar-outline"></ion-icon>Prazo</ion-label>
-                            <ion-input [(ngModel)]="Form.data" name="data" type="date" placeholder="Insira o prazo"></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label position="floating"><ion-icon name="checkmark-outline"></ion-icon>Status</ion-label>
-                            <ion-select [(ngModel)]="Form.status" value="{{Form.status}}" name="status">
-                                <ion-select-option value="1">Feito</ion-select-option>
-                                <ion-select-option value="0">Pendente</ion-select-option>
-                            </ion-select>
-                        </ion-item>
-                        <div style="text-align:end;">
-                            <ion-button *ngIf="!Form.id" type="submit">Cadastrar</ion-button>
-                            <ion-button *ngIf="Form.id" type="submit">Editar</ion-button>
-                            <ion-button *ngIf="Form.id" (click)="Cancelar()" color="danger" type="button">Cancelar</ion-button>
-                        </div>
-                    </form>
-                </ion-card-content>
-
-
-                <ion-card-content >
-                    <h1>Pendentes</h1>
-                    <ion-col *ngIf="listaActive == 0">
-                        Não há itens pendentes
-                    </ion-col>
-                    <ion-grid>
-                        <ion-row class="list" *ngFor="let obj of listaActive">
-                            <ion-col class="ion-align-self-center">
-                                {{ obj.descricao }}
-                            </ion-col>
-                            <ion-col class="ion-align-self-center">
-                                {{ obj.data }}
-                            </ion-col>
-                            <ion-col size="1" class="ion-align-self-center" >
-                                <form (ngSubmit)="Check(obj.id)">
-                                    <ion-button type="submit" color="success">
-                                        <ion-icon name="checkmark-outline"></ion-icon>
-                                    </ion-button>
-                                </form>
-                            </ion-col>
-                            <ion-col size="1" class="ion-align-self-center" >
-                                <form (ngSubmit)="Edit(obj.id)">
-                                    <ion-button type="submit" color="primary">
-                                        <ion-icon name="create-outline"></ion-icon>
-                                    </ion-button>
-                                </form>
-                            </ion-col>
-                            <ion-col size="1">
-                                <form (ngSubmit)="Delete(obj.id)">
-                                    <ion-button type="submit" color="danger">
-                                        <ion-icon name="trash-outline"></ion-icon>
-                                    </ion-button>
-                                </form>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </ion-card-content>
-
-                <ion-card-content >
-                    <h1>Concluídos</h1>
-                    <ion-col *ngIf="listaInactive == 0">
-                        Não há itens concluídos
-                    </ion-col>
-                    <ion-grid>
-                        <ion-row class="list" *ngFor="let obj of listaInactive">
-                            <ion-col class="ion-align-self-center">
-                                {{ obj.descricao }}
-                            </ion-col>
-                            <ion-col class="ion-align-self-center">
-                                {{ obj.data }}
-                            </ion-col>
-                            <ion-col size="1" class="ion-align-self-center" >
-                                <form (ngSubmit)="Check(obj.id)">
-                                    <ion-button type="submit" color="danger">
-                                        <ion-icon name="close-outline"></ion-icon>
-                                    </ion-button>
-                                </form>
-                            </ion-col>
-                            <ion-col size="1">
-                                <form (ngSubmit)="Delete(obj.id)">
-                                    <ion-button type="submit" color="danger">
-                                        <ion-icon name="trash-outline"></ion-icon>
-                                    </ion-button>
-                                </form>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </ion-card-content>
-
-
+    <ion-button id="open-modal" expand="block">Cadastrar</ion-button>
+    <ion-modal trigger="open-modal">
+        <ion-grid>
+            <ion-col class="ion-margin-top ion-justify-content-center" size-md='8'>
+                <form (ngSubmit)="salvar()">
+                    <ion-input type="hidden" [(ngModel)]="Form.id" name="id"></ion-input>
+                    <ion-item>
+                        <ion-label position="floating"><ion-icon name="document-outline"></ion-icon>Descrição</ion-label>
+                        <ion-input [(ngModel)]="Form.descricao" name="descricao" type="text" placeholder="Insira a descrição"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><ion-icon name="calendar-outline"></ion-icon>Prazo</ion-label>
+                        <ion-datetime [(ngModel)]="Form.data" name="data"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><ion-icon name="checkmark-outline"></ion-icon>Status</ion-label>
+                        <ion-select [(ngModel)]="Form.status" value="{{Form.status}}" name="status">
+                            <ion-select-option value="1">Feito</ion-select-option>
+                            <ion-select-option value="0">Pendente</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <div style="text-align:end;">
+                        <ion-button *ngIf="!Form.id" type="submit">Cadastrar</ion-button>
+                        <ion-button *ngIf="Form.id" type="submit">Editar</ion-button>
+                        <ion-button *ngIf="Form.id" (click)="Cancelar()" color="danger" type="button">Cancelar</ion-button>
+                    </div>
+                </form>
             </ion-col>
-        </ion-row>
+        </ion-grid>
+    </ion-modal>
+
+    <ion-grid>
+        <ion-list>
+            <ion-list-header>
+                <ion-label>Pendentes</ion-label>
+            </ion-list-header>
+
+            <ion-item *ngIf="listaActive === undefined">
+                Não há itens pendentes
+            </ion-item>
+
+            <ion-item *ngFor="let obj of listaActive">
+                <ion-row>
+                    <ion-col class="ion-align-self-center">
+                        {{ obj.descricao }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="ion-align-self-center">
+                    {{ obj.data }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="ion-align-self-center" >
+                        <form (ngSubmit)="Check(obj.id)">
+                            <ion-button type="submit" color="success">
+                                <ion-icon name="checkmark-outline"></ion-icon>
+                            </ion-button>
+                        </form>
+                    </ion-col>
+
+                    <ion-col class="ion-align-self-center" >
+                        <form (ngSubmit)="Edit(obj.id)">
+                            <ion-button type="submit" color="primary">
+                                <ion-icon name="create-outline"></ion-icon>
+                            </ion-button>
+                        </form>
+                    </ion-col>
+                    <ion-col>
+                        <form (ngSubmit)="Delete(obj.id)">
+                            <ion-button type="submit" color="danger">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </ion-button>
+                        </form>
+                    </ion-col>
+                </ion-row>
+                
+            </ion-item>
+        </ion-list>
+    </ion-grid>
+
+    <ion-grid>
+        <ion-list>
+
+        </ion-list>
+    </ion-grid>
+
+    <ion-grid>
+        <ion-col class="ion-margin-top ion-justify-content-center" size-md='8'>
+            <ion-card-content >
+                <h1>Pendentes</h1>
+                <ion-col *ngIf="!listaActive">
+                    Não há itens pendentes
+                </ion-col>
+                <ion-grid>
+                    <ion-row class="list" *ngFor="let obj of listaActive">
+                        <ion-col class="ion-align-self-center">
+                            {{ obj.descricao }}
+                        </ion-col>
+                        <ion-col class="ion-align-self-center">
+                            {{ obj.data }}
+                        </ion-col>
+                        <ion-col size="1" class="ion-align-self-center" >
+                            <form (ngSubmit)="Check(obj.id)">
+                                <ion-button type="submit" color="success">
+                                    <ion-icon name="checkmark-outline"></ion-icon>
+                                </ion-button>
+                            </form>
+                        </ion-col>
+                        <ion-col size="1" class="ion-align-self-center" >
+                            <form (ngSubmit)="Edit(obj.id)">
+                                <ion-button type="submit" color="primary">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                </ion-button>
+                            </form>
+                        </ion-col>
+                        <ion-col size="1">
+                            <form (ngSubmit)="Delete(obj.id)">
+                                <ion-button type="submit" color="danger">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </ion-button>
+                            </form>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+
+            <ion-card-content >
+                <h1>Concluídos</h1>
+                <ion-col *ngIf="listaInactive">
+                    Não há itens concluídos
+                </ion-col>
+                <ion-grid>
+                    <ion-row class="list" *ngFor="let obj of listaInactive">
+                        <ion-col class="ion-align-self-center">
+                            {{ obj.descricao }}
+                        </ion-col>
+                        <ion-col class="ion-align-self-center">
+                            {{ obj.data }}
+                        </ion-col>
+                        <ion-col size="1" class="ion-align-self-center" >
+                            <form (ngSubmit)="Check(obj.id)">
+                                <ion-button type="submit" color="danger">
+                                    <ion-icon name="close-outline"></ion-icon>
+                                </ion-button>
+                            </form>
+                        </ion-col>
+                        <ion-col size="1">
+                            <form (ngSubmit)="Delete(obj.id)">
+                                <ion-button type="submit" color="danger">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </ion-button>
+                            </form>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+
+
+        </ion-col>
     </ion-grid>
 </ion-content>

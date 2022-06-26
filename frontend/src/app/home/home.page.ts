@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 import { CookieService } from 'ngx-cookie-service';
 import { Lista } from '../models/lista';
 import { ListaService } from '../services/lista.service';
@@ -11,6 +12,8 @@ import { ListaService } from '../services/lista.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
+  @ViewChild(IonModal) modal: IonModal;
+
   Form: Lista
   listaActive: Lista[]
   listaInactive: Lista[]
@@ -24,9 +27,9 @@ export class HomePage implements OnInit{
   ) {}
 
   ngOnInit(){
-    this.Form = this.limparForm()
-    this.lista_aux = this.limparForm()
-    this.atualizaListas()
+    this.Form = this.limparForm();
+    this.lista_aux = this.limparForm();
+    this.atualizaListas();
   }
 
   async toast(msg,color){
@@ -121,4 +124,5 @@ export class HomePage implements OnInit{
   Cancelar(){
     this.Form = this.limparForm();
   }
+
 }
