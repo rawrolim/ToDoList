@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { UserService } from './../services/user.service';
+import { User } from './../models/user';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController, IonModal } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core/components';
+import { ToastController } from '@ionic/angular';
 import { CookieService } from 'ngx-cookie-service';
 import { Lista } from '../models/lista';
 import { ListaService } from '../services/lista.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-home',
@@ -12,24 +14,37 @@ import { ListaService } from '../services/lista.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
-  @ViewChild(IonModal) modal: IonModal;
 
-  Form: Lista
-  listaActive: Lista[]
-  listaInactive: Lista[]
-  lista_aux: Lista
+  Form: Lista;
+  listaActive: Lista[];
+  listaInactive: Lista[];
+  lista_aux: Lista;
+  UserLogged: User;
 
   constructor(
     private listaService: ListaService,
     private router: Router,
     public toastController: ToastController,
-    private cookieService: CookieService
-  ) {}
+    private cookieService: CookieService,
+    private storage: Storage,
+    private userService: UserService
+  ) {
+  }
 
-  ngOnInit(){
-    this.Form = this.limparForm();
-    this.lista_aux = this.limparForm();
+  async ngOnInit(){
+    this.storage.create();
+    this.getInfoUser();
     this.atualizaListas();
+    console.log(this.UserLogged)
+  }
+
+  atualizaListas(){
+    this.listaService.getAllListaActive().subscribe(r => {
+      this.listaActive = r
+    })
+    this.listaService.getAllListaInactive().subscribe(r => {
+      this.listaInactive = r
+    })
   }
 
   async toast(msg,color){
@@ -40,40 +55,6 @@ export class HomePage implements OnInit{
       duration: 2000
     });
     toast.present();
-  }
-
-  salvar(){
-    this.Form.user_id = Number(this.cookieService.get('user_id'))
-    if(this.Form.descricao.length != 0){
-      if(this.Form.data != undefined){
-        if(this.Form.id){
-          this.listaService.Update(this.Form).subscribe(r => {
-            this.toast('Tarefa editada a lista com sucesso.','success')
-            this.Form = this.limparForm()
-            this.atualizaListas()
-          })
-        }else{
-          this.listaService.setLista(this.Form).subscribe(r => {
-            this.toast('Tarefa adicionada a lista com sucesso.','success')
-            this.Form = this.limparForm()
-            this.atualizaListas()
-          })
-        }
-      }else{
-        this.toast('Selecione um prazo.','danger')
-      }
-    }else{
-      this.toast('Insira uma descrição.','danger')
-    }
-  }
-
-  atualizaListas(){
-    this.listaService.getAllListaActive().subscribe(r => {
-      this.listaActive = r
-    })
-    this.listaService.getAllListaInactive().subscribe(r => {
-      this.listaInactive = r
-    })
   }
 
   Check(id){
@@ -95,11 +76,11 @@ export class HomePage implements OnInit{
   }
 
   Edit(id){
-    this.Form = this.limparForm()
-    this.Form.id = id
-    this.listaService.getLista(this.Form).subscribe(r => {
-      this.Form = r
-    })
+    this.router.navigate(['/cadastro-item',id]);
+  }
+
+  Cadastrar(){
+    this.router.navigate(['/cadastro-item']);
   }
 
   Delete(id){
@@ -109,20 +90,16 @@ export class HomePage implements OnInit{
     })
   }
 
-  limparForm(){
-    let Form: Lista = {
-      id: 0,
-      descricao: '',
-      user_id: 0,
-      data: undefined,
-      status: false,
-      erro: '',
-    }
-    return Form
+  LogOut(){
+    this.storage.clear();
+    this.cookieService.deleteAll();
+    this.router.navigate(['/login']);
   }
 
-  Cancelar(){
-    this.Form = this.limparForm();
+  getInfoUser(){
+    this.userService.getCurrentUser().subscribe(u => {
+      this.UserLogged = u;
+    });
   }
 
 }

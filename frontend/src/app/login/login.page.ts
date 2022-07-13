@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
@@ -23,10 +24,17 @@ export class LoginPage implements OnInit {
     private userService: UserService,
     private router: Router,
     public toastController: ToastController,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private storage: Storage
   ) { }
 
-  ngOnInit( ) {
+  async ngOnInit( ) {
+    await this.storage.create();
+    let id = await this.storage.get('id')
+    if(id){
+      this.cookieService.set('user_id',id);
+      this.router.navigate(['/home']);
+    }
   }
 
   async toast(msg,color){
@@ -45,7 +53,8 @@ export class LoginPage implements OnInit {
         this.userService.getUserLogin(this.userForm).subscribe(r => {
           if(r.email.length != 0){
             this.cookieService.set('user_id',r.id.toString());
-            this.router.navigate(['/home'])
+            this.storage.set("id",r.id.toString());
+            this.router.navigate(['/home']);
           }else{
             this.toast('Usuário e/ou senha incorretos.', 'danger')
           }

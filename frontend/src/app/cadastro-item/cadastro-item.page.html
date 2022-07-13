@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-col class="ion-margin-top ion-justify-content-center" size-md='8'>
+        <form (ngSubmit)="salvar()">
+            <ion-input type="hidden" [(ngModel)]="Form.id" name="id"></ion-input>
+            <ion-input type="hidden" [(ngModel)]="Form.status" value="{{Form.status}}" name="status"></ion-input>
+
+            <ion-item>
+                <ion-label position="floating"><ion-icon name="document-outline"></ion-icon>Descrição</ion-label>
+                <ion-input [(ngModel)]="Form.descricao" name="descricao" type="text" placeholder="Insira a descrição"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating"><ion-icon name="calendar-outline"></ion-icon>Prazo</ion-label>
+                <ion-datetime [(ngModel)]="Form.data" name="data"></ion-datetime>
+            </ion-item>
+            <div style="text-align:end;">
+                <ion-button *ngIf="!Form.id" type="submit">Cadastrar</ion-button>
+                <ion-button *ngIf="Form.id" type="submit">Editar</ion-button>
+                <ion-button (click)="Cancelar()" color="danger" type="button">Cancelar</ion-button>
+            </div>
+        </form>
+    </ion-col>
+  </ion-grid>
+</ion-content>
