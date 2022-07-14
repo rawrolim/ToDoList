@@ -4,7 +4,6 @@ services:
   db:
     image: mysql
     container_name: db-to-do-list
-    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: to_do_list

@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-title>
             <div class="ion-float-left margin-header">
-                <ion-icon name="list-outline"></ion-icon> 
+                <ion-icon name="list-outline"></ion-icon> {{this.UserLogged.name}}
             </div>
             <div class="ion-float-right">
                 <ion-button fill="clear" (click)="LogOut()">
@@ -16,13 +16,9 @@
 <ion-content [fullscreen]="true">
     <ion-grid>
         <ion-list>
-            <ion-list-header>
+            <ion-list-header class="ion-no-padding">
                 <ion-title class="ion-no-padding">Pendentes</ion-title>
             </ion-list-header>
-
-            <ion-item *ngIf="listaActive === undefined">
-                Não há itens pendentes
-            </ion-item>
 
             <div *ngFor="let obj of listaActive" class="border-bottom">
                 <ion-row>
@@ -36,43 +32,27 @@
                     </ion-col>
                 </ion-row>
                 <ion-row>
-                    <ion-col class="ion-align-self-center" >
-                        <form (ngSubmit)="Check(obj.id)">
-                            <ion-button type="submit" color="success">
-                                <ion-icon name="checkmark-outline"></ion-icon>
-                            </ion-button>
-                        </form>
-                    </ion-col>
-
-                    <ion-col class="ion-align-self-center" >
-                        <form (ngSubmit)="Edit(obj.id)">
-                            <ion-button type="submit" color="primary">
-                                <ion-icon name="create-outline"></ion-icon>
-                            </ion-button>
-                        </form>
-                    </ion-col>
-                    <ion-col>
-                        <form (ngSubmit)="Delete(obj.id)">
-                            <ion-button type="submit" color="danger">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </ion-button>
-                        </form>
+                    <ion-col class="ion-text-end">
+                        <ion-button (click)="Check(obj.id)" type="submit" color="success" class="ion-float-end">
+                            <ion-icon name="checkmark-outline"></ion-icon>
+                        </ion-button>
+                        <ion-button (click)="Edit(obj.id)" type="submit" color="primary" class="ion-float-end">
+                            <ion-icon name="create-outline"></ion-icon>
+                        </ion-button>
+                        <ion-button (click)="Delete(obj.id)" type="submit" color="danger" class="ion-float-end">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </ion-button>
                     </ion-col>
                 </ion-row>
-                
             </div>
         </ion-list>
     </ion-grid>
 
     <ion-grid>
         <ion-list>
-            <ion-list-header>
+            <ion-list-header class="ion-no-padding">
                 <ion-title class="ion-no-padding">Concluídos</ion-title>
             </ion-list-header>
-
-            <ion-item *ngIf="listaInactive">
-                Não há itens concluídos
-            </ion-item>
 
             <div class="border-bottom" *ngFor="let obj of listaInactive">
                 <ion-row>
@@ -86,25 +66,10 @@
                     </ion-col>
                 </ion-row>
                 <ion-row>
-                    <ion-col class="ion-align-self-center" >
+                    <ion-col class="ion-text-end" >
                         <form (ngSubmit)="Check(obj.id)">
-                            <ion-button type="submit" color="success">
-                                <ion-icon name="checkmark-outline"></ion-icon>
-                            </ion-button>
-                        </form>
-                    </ion-col>
-
-                    <ion-col class="ion-align-self-center" >
-                        <form (ngSubmit)="Edit(obj.id)">
-                            <ion-button type="submit" color="primary">
-                                <ion-icon name="create-outline"></ion-icon>
-                            </ion-button>
-                        </form>
-                    </ion-col>
-                    <ion-col>
-                        <form (ngSubmit)="Delete(obj.id)">
                             <ion-button type="submit" color="danger">
-                                <ion-icon name="trash-outline"></ion-icon>
+                                <ion-icon name="close-outline"></ion-icon>
                             </ion-button>
                         </form>
                     </ion-col>

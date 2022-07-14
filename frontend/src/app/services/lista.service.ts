@@ -34,10 +34,7 @@ export class ListaService {
   }
 
   getLista(lista: Lista){
-    let params = new HttpParams();
-    params = params.append('id', lista.id);
-
-    return this.http.get<Lista>(environment.url+"lista/"+lista.id, {params})
+    return this.http.get<Lista>(environment.url+"lista/"+lista.id)
   }
 
   Update(lista: Lista){

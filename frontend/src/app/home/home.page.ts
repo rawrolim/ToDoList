@@ -32,9 +32,10 @@ export class HomePage implements OnInit{
   }
 
   async ngOnInit(){
-    this.storage.create();
-    this.getInfoUser();
-    this.atualizaListas();
+    this.UserLogged = new User();
+    await this.storage.create();
+    await this.getInfoUser();
+    await this.atualizaListas();
     console.log(this.UserLogged)
   }
 
@@ -58,7 +59,9 @@ export class HomePage implements OnInit{
   }
 
   Check(id){
+    this.lista_aux = new Lista();
     this.lista_aux.id = id
+    console.log(this.lista_aux)
     this.listaService.getLista(this.lista_aux).subscribe(r => {
       this.lista_aux = r;
       if(this.lista_aux.status){

@@ -18,9 +18,8 @@
                             <ion-label position="floating"><ion-icon name="lock-closed"></ion-icon>Senha</ion-label>
                             <ion-input [(ngModel)]="userForm.password" name="password" type="password" placeholder="Digite sua senha"></ion-input>
                         </ion-item>
-                        <ion-button href="/" color="default" fill="clear" size="full">esqueci a senha</ion-button>
                         <ion-button expand="block" type="submit">Entrar</ion-button>
-                        <ion-button href="/cadastro" color="default" fill="clear" size="full">Cadastre-se</ion-button>
+                        <ion-button routerLink="/cadastro" color="default" fill="clear" size="full">Cadastre-se</ion-button>
                     </form>
                 </ion-card-content>
             </ion-col>

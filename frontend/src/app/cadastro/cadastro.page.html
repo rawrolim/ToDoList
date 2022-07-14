@@ -4,10 +4,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content style="height: 400px;">
+<ion-content>
     <ion-card>
         <form (ngSubmit)="cadastro()">
-            <IonList>
+            <ion-list>
                 <ion-item>
                     <ion-label position="floating"><ion-icon name="person-circle-sharp"></ion-icon>Nome</ion-label>
                     <ion-input [(ngModel)]="userForm.name" name="name" type="text" placeholder="Digite seu nome"></ion-input>
@@ -25,7 +25,8 @@
                     <ion-input [(ngModel)]="userForm.password_repeat" name="password_repeat" type="password" placeholder="Repita a senha"></ion-input>
                 </ion-item>
                 <ion-button type="submit" expand="block">Entrar</ion-button>
-            </IonList>
+                <ion-button (click)="cancel()" type="button" expand="block" color="danger">Cancelar</ion-button>
+            </ion-list>
         </form>
     </ion-card>
 </ion-content>

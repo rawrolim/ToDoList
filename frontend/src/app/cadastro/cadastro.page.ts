@@ -63,4 +63,8 @@ export class CadastroPage implements OnInit {
     }
   }
 
+  cancel(){
+    this.router.navigate(['/login']);
+  }
+
 }
