@@ -26,3 +26,14 @@ jobs:
         password: MACAhell2704
         local-dir: './backend/'
         server-dir: '/teste.rawlinsonrolimadv.com/'
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/vendor/**
+          **/.env
+          
+    - name: 🔨 Build Project
+      run: |
+        composer install
+        php artisan key:generate
+        php artisan migrate
