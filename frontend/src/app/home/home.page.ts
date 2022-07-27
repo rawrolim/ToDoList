@@ -33,19 +33,27 @@ export class HomePage implements OnInit{
 
   async ngOnInit(){
     this.UserLogged = new User();
-    await this.storage.create();
-    await this.getInfoUser();
+    this.storage.create();
+    this.getInfoUser();
     await this.atualizaListas();
-    console.log(this.UserLogged)
+    this.trasformaDatas();
   }
 
-  atualizaListas(){
+  async atualizaListas(){
     this.listaService.getAllListaActive().subscribe(r => {
-      this.listaActive = r
-    })
+      this.listaActive = r;
+    });
     this.listaService.getAllListaInactive().subscribe(r => {
-      this.listaInactive = r
-    })
+      this.listaInactive = r;
+    });
+  }
+
+  trasformaDatas(){
+    if(this.listaActive !== undefined){
+      for(let i=0;i<this.listaActive.length;i++){
+        this.listaActive[i].data = new Date();
+      }
+    }
   }
 
   async toast(msg,color){
@@ -103,6 +111,10 @@ export class HomePage implements OnInit{
     this.userService.getCurrentUser().subscribe(u => {
       this.UserLogged = u;
     });
+  }
+
+  ionViewDidEnter(){
+    this.atualizaListas();
   }
 
 }

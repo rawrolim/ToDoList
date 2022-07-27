@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   //url: "http://backend-to-do-list:8000/api/"
-  //url: "http://localhost:8000/api/"
-  url: "http://192.168.0.58:8000/api/"
+  url: "http://localhost:8000/api/"
+  //url: "http://192.168.0.58:8000/api/"
 };
 
 /*

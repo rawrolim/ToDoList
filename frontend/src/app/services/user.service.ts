@@ -32,8 +32,6 @@ export class UserService {
   }
 
   getCurrentUser(){
-    let params = new HttpParams();
-    params = params.append('id', this.cookieService.get("user_id"));
-    return this.http.get<User>(environment.url+"user", {params});
+    return this.http.get<User>(environment.url+"user/"+this.cookieService.get("user_id"));
   }
 }
