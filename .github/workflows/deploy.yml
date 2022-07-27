@@ -27,7 +27,4 @@ jobs:
         local-dir: './backend/'
         server-dir: '/teste.rawlinsonrolimadv.com/'
         exclude: |
-          **/.git*
-          **/.git*/**
           **/vendor/**
-          **/.env
