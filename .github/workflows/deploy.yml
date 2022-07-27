@@ -34,7 +34,7 @@ jobs:
           
     - name: 🔨 Build Project
       run: |
-        php composer-setup.php --install-dir=bin --filename=composer
+        php composer.phar
         composer install
         php artisan key:generate
         php artisan migrate
