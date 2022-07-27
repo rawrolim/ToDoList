@@ -21,7 +21,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
-        server: ftp://rawlinsonrolimadv.com
+        server: ftp.rawlinsonrolimadv.com
         username: mnradv76
         password: MACAhell2704
         local-dir: './backend/'
