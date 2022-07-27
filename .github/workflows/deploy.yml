@@ -1,29 +1,28 @@
+name: CI
 
-trigger:
-- master
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
-pool:
-  vmImage: ubuntu-latest
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
-variables:
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
-steps:
-- task: FtpUpload@2
-  displayName: 'FTP Upload'
-  inputs:
-    credentialsOption: inputs
-    serverUrl: 'ftp://rawlinsonrolimadv.com'
-    username: mnradv76
-    password: MACAhell2704
-    rootDirectory: '$(Build.SourcesDirectory)/backend'
-    remoteDirectory: '/teste.rawlinsonrolimadv.com'
-    clean: true
-    trustSSL: true
-    preservePaths: true
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
     
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: ftp://rawlinsonrolimadv.com
+        username: mnradv76
+        password: MACAhell2704
+        local-dir: '/backend'
+        server-dir: '/teste.rawlinsonrolimadv.com'
