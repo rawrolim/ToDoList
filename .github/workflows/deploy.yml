@@ -1,0 +1,29 @@
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: FtpUpload@2
+  displayName: 'FTP Upload'
+  inputs:
+    credentialsOption: inputs
+    serverUrl: 'ftp://rawlinsonrolimadv.com'
+    username: mnradv76
+    password: MACAhell2704
+    rootDirectory: '$(Build.SourcesDirectory)/backend'
+    remoteDirectory: '/teste.rawlinsonrolimadv.com'
+    clean: true
+    trustSSL: true
+    preservePaths: true
+    
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
