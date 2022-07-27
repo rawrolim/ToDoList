@@ -17,6 +17,17 @@ jobs:
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
+      
+    - name: Setup Enviroment
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8'
+        
+    - name: Speed up the packages installation process
+      run: composer global require hirak/prestissimo
+    
+    - name: Install Packages
+      run: composer install --no-dev
     
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
@@ -31,10 +42,3 @@ jobs:
           **/.git*/**
           **/vendor/**
           **/.env
-          
-    - name: 🔨 Build Project
-      run: |
-        php composer.phar
-        composer install
-        php artisan key:generate
-        php artisan migrate
