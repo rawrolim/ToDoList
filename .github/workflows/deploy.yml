@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+      
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: ftp.rawlinsonrolimadv.com
+        username: mnradv76
+        password: MACAhell2704
+        local-dir: './backend/'
+        server-dir: '/teste.rawlinsonrolimadv.com/'
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/vendor/**
+          **/.env
