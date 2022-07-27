@@ -24,5 +24,5 @@ jobs:
         server: ftp://rawlinsonrolimadv.com
         username: mnradv76
         password: MACAhell2704
-        local-dir: '/backend'
+        local-dir: './backend/'
         server-dir: '/teste.rawlinsonrolimadv.com'
