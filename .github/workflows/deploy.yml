@@ -25,4 +25,4 @@ jobs:
         username: mnradv76
         password: MACAhell2704
         local-dir: './backend/'
-        server-dir: '/teste.rawlinsonrolimadv.com'
+        server-dir: '/teste.rawlinsonrolimadv.com/'
