@@ -20,22 +20,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup PHP
-        uses: shivammatur/setup-php@v2
+        uses: shivammatur/setup-php@master
         with:
           php-version: "8.0"
+          extensions: mbstring, ctype, fyleinfo, openssl
       
-      - name: Use composer dependencies cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/composer
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Install Packages
-        run: composer install
-
   deploy:
-    depends: build
     name: 🎉 Deploy
     runs-on: "ubuntu-20.04"
 
