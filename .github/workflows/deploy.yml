@@ -46,7 +46,7 @@ jobs:
         run: tar -czv "${GITHUB_SHA}".tar.gz --exclude=*.git
 
       - name: Store atifacts
-        uses: actions/upload-artifactis@v2
+        uses: actions/upload-artifacts@v2
         with:
           name: backend-build
           path: ${{ github.sha }}.tar.gz
