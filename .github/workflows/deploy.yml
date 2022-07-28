@@ -24,6 +24,8 @@ jobs:
         with:
           php-cersion: 8.0
           extensions: mbstring, ctype, fileinfo, openssl, PDO, json, xml, tokenizer, bcmath
-
+      
+      - name: Install composer dependencies
+        run: composer install
 
     
