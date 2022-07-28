@@ -43,7 +43,9 @@ jobs:
       - name: Create artifacts
         env:
           GITHUB_SHA: ${{ github.sha }}
-        run: tar -czv "${GITHUB_SHA}".tar.gz --exclude=*.git
+        run: |
+          cd ./backend
+          tar -czv "${GITHUB_SHA}".tar.gz --exclude=*.git
 
       - name: Store atifacts
         uses: actions/upload-artifact@v2
