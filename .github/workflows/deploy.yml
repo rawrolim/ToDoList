@@ -40,11 +40,11 @@ jobs:
           cd ./backend
           php artisan key:generate
 
-      - name: Upload Ftp
-        uses: airvzxf/ftp-deployment-action@latest
-        with: 
-          server: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local_dir: "./backend/"
-          remote_dir: "/teste.rawlinsonrolimadv.com/"
+      #- name: Upload Ftp
+      #  uses: airvzxf/ftp-deployment-action@latest
+      #  with: 
+      #    server: ${{ secrets.FTP_HOST }}
+      #    user: ${{ secrets.FTP_USER }}
+      #    password: ${{ secrets.FTP_PASSWORD }}
+      #    local_dir: "./backend/"
+      #    remote_dir: "/teste.rawlinsonrolimadv.com/"
