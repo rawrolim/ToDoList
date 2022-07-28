@@ -29,6 +29,6 @@ jobs:
         run: | 
           cd ./backend
           composer install
-          rm .env
+          cp .env-example .env
       
   
