@@ -18,11 +18,6 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
-
-      - name: Compose CSS ans JS
-        run: |
-          npm install
-          npm run prod
       
       - name: Configure PHP
         uses: shivammathur/setup-php@v2
