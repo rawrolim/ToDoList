@@ -50,5 +50,5 @@ jobs:
       - name: Store atifacts
         uses: actions/upload-artifact@v2
         with:
-          name: backend-build
+          name: app-build
           path: ${{ github.sha }}.tar.gz
