@@ -28,7 +28,7 @@ jobs:
       - name: Install composer dependencies
         run: | 
           cd ./backend
-          composer install
+          composer update
 
       - name: Copy .ENV
         run: |
