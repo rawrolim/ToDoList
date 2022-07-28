@@ -22,7 +22,7 @@ jobs:
       - name: Configure PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-cersion: 8.0
+          php-version: 8.0
           extensions: mbstring, ctype, fileinfo, openssl, PDO, json, xml, tokenizer, bcmath
       
       - name: Install composer dependencies
@@ -39,3 +39,14 @@ jobs:
         run: |
           cd ./backend
           php artisan key:generate
+      
+      - name: Create artifacts
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        run: tar -czv "${GITHUB_SHA}".tar.gz --exclude=*.git
+
+      - name: Store atifacts
+        uses: actions/upload-artifactis@v2
+        with:
+          name: backend-build
+          path: ${{ github.sha }}.tar.gz
