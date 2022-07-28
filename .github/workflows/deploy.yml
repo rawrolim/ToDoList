@@ -26,6 +26,8 @@ jobs:
           extensions: mbstring, ctype, fileinfo, openssl, PDO, json, xml, tokenizer, bcmath
       
       - name: Install composer dependencies
-        run: composer install
-
-    
+        run: | 
+          cd ./backend
+          composer install
+      
+  
