@@ -29,9 +29,13 @@ jobs:
         run: | 
           cd ./backend
           composer install
-          
-      - name: Copu .ENV
-        run: cp .env.example .env
+
+      - name: Copy .ENV
+        run: |
+          cd ./backend
+          cp .env.example .env
 
       - name: Generate key for laravel
-        run: php artisan key:generate
+        run: |
+          cd ./backend
+          php artisan key:generate
